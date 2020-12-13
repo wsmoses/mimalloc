@@ -64,3 +64,12 @@ not accidentally mix pointers from different allocators).
 #define _aligned_offset_recalloc(p,s,n,a,o)   mi_recalloc_aligned_at(p,s,n,a,o)
 
 #endif // MIMALLOC_OVERRIDE_H
+
+#ifdef __cplusplus
+namespace std {
+  using ::mi_malloc;
+  using ::mi_calloc;
+  using ::mi_realloc;
+  using ::mi_free;
+};
+#endif

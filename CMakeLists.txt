@@ -307,7 +307,9 @@ endif()
 
 # single object file for more predictable static overriding
 if (MI_BUILD_OBJECT)
-  add_library(mimalloc-obj OBJECT src/static.c)
+  set (CMAKE_CXX_STANDARD 17)
+  add_library(mimalloc-obj OBJECT src/static.c src/static.cpp)
+  include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../../../libcxx/include")
   set_property(TARGET mimalloc-obj PROPERTY POSITION_INDEPENDENT_CODE ON)
   target_compile_definitions(mimalloc-obj PRIVATE ${mi_defines})
   target_compile_options(mimalloc-obj PRIVATE ${mi_cflags})
