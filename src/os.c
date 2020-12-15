@@ -523,7 +523,9 @@ static void* mi_os_mem_alloc(size_t size, size_t try_alignment, bool commit, boo
   mi_stat_counter_increase(stats->mmap_calls, 1);
   if (p != NULL) {
     _mi_stat_increase(&stats->reserved, size);
-    if (commit) { _mi_stat_increase(&stats->committed, size); }
+    if (commit) {
+      _mi_stat_increase(&stats->committed, size);
+    }
   }
   return p;
 }
@@ -1169,9 +1171,12 @@ static size_t mi_os_numa_node_countx(void) {
 }
 #endif
 
+#undef _mi_numa_node_count
 size_t _mi_numa_node_count = 0;   // cache the node count
+#define _mi_numa_node_count 1
 
 size_t _mi_os_numa_node_count_get(void) {
+  /*
   if (mi_unlikely(_mi_numa_node_count <= 0)) {
     long ncount = mi_option_get(mi_option_use_numa_nodes); // given explicitly?
     if (ncount <= 0) ncount = (long)mi_os_numa_node_countx();        // or detect dynamically
@@ -1179,6 +1184,7 @@ size_t _mi_os_numa_node_count_get(void) {
     _mi_verbose_message("using %zd numa regions\n", _mi_numa_node_count);
   }
   mi_assert_internal(_mi_numa_node_count >= 1);
+  */
   return _mi_numa_node_count;
 }
 

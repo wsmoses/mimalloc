@@ -682,7 +682,6 @@ static mi_segment_t* mi_segment_init(mi_segment_t* segment, size_t required, mi_
     mi_segment_insert_in_free_queue(segment, tld);
   }
 
-  //fprintf(stderr,"mimalloc: alloc segment at %p\n", (void*)segment);
   return segment;
 }
 
